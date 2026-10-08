@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
+    >
+    <title>PDF Merge — local merging in browser</title>
+    <meta
+      name="description"
+      content="Combine PDFs in your browser. Your documents are never uploaded."
+    >
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Deferred scripts run in order after the page has been parsed. -->
+    <script defer src="vendor/pdf-lib.min.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <a class="brand" href="./"><span class="logo">≋</span> PDF Merge</a>
+      <span class="local"><span></span> Runs on your device</span>
+    </header>
+
+    <main>
+      <div class="eyebrow">A SIMPLE TOOL.</div>
+      <h1>Many PDFs.<br><span>One tidy file.</span></h1>
+      <p class="intro">
+        Bring your documents together in seconds.<br>
+        Your files stay on your device, from start to finish.
+      </p>
+
+      <section class="card" aria-label="PDF merger">
+        <!-- File selection -->
+        <div id="drop" class="drop">
+          <div class="paper" aria-hidden="true">↓</div>
+          <h2>Drop your PDFs here</h2>
+          <p>or select files from your computer</p>
+          <button id="choose" class="primary">
+            Choose PDFs <span aria-hidden="true">＋</span>
+          </button>
+          <input
+            id="picker"
+            type="file"
+            accept=".pdf,application/pdf"
+            multiple
+            hidden
+          >
+          <div class="hint">PDF files only · Up to 100 MB combined</div>
+        </div>
+
+        <!-- Selected documents are populated by app.js. -->
+        <div id="queue" hidden>
+          <div class="list-heading">
+            <h2>Your documents <span id="count"></span></h2>
+            <button id="clear" class="text-button">Clear all</button>
+          </div>
+          <p class="order-hint">Pages will be combined in the order below.</p>
+          <ol id="files"></ol>
+
+          <div class="merge-footer">
+            <span id="total"></span>
+            <button id="merge" class="primary">
+              Merge PDFs <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress messages and the completed download -->
+        <p id="status" role="status" aria-live="polite"></p>
+        <a id="download" class="download" hidden download="merged.pdf">
+          Download merged PDF ↓
+        </a>
+      </section>
+
+      <div class="privacy">
+        <span aria-hidden="true">◈</span>
+        <p>
+          <strong>Your documents stay yours.</strong> Files are processed in your
+          browser and never uploaded to a server. No tracking.
+        </p>
+      </div>
+    </main>
+
+    <footer>Simple by design. Private by default.</footer>
+  </body>
+</html>
