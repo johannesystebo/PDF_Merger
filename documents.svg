@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 300" fill="none">
+  <title>Two documents stacked together</title>
+  <!-- A restrained geometric illustration using the four brand colors. -->
+  <circle cx="175" cy="146" r="117" fill="#F4F1DE" opacity=".65"/>
+  <g transform="rotate(-12 145 140)">
+    <rect x="72" y="49" width="137" height="182" rx="7" fill="#E9C46A" stroke="#264653" stroke-width="2.5"/>
+    <path d="M96 82h58M96 96h80" stroke="#264653" stroke-width="3" stroke-linecap="round" opacity=".4"/>
+  </g>
+  <g transform="rotate(6 203 170)">
+    <path d="M147 73h79l36 36v140a7 7 0 0 1-7 7H147a7 7 0 0 1-7-7V80a7 7 0 0 1 7-7Z" fill="white" stroke="#264653" stroke-width="2.5"/>
+    <path d="M226 73v29a7 7 0 0 0 7 7h29" fill="#DCEFE9"/>
+    <path d="M226 73v29a7 7 0 0 0 7 7h29" stroke="#264653" stroke-width="2.5" stroke-linejoin="round"/>
+    <rect x="160" y="133" width="45" height="27" rx="3" fill="#2A9D8F"/>
+    <path d="M161 183h77m-77 14h77m-77 14h50" stroke="#B3C4C6" stroke-width="3" stroke-linecap="round"/>
+    <path d="M171 151v-10h4a3 3 0 0 1 0 6h-4m11 4v-10h2c5 0 5 10 0 10h-2m10 0v-10h6m-6 5h5" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+  </g>
+  <circle cx="92" cy="238" r="24" fill="#264653"/>
+  <path d="M92 227v22m-11-11h22" stroke="#F4F1DE" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

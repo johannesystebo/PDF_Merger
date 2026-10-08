@@ -2,89 +2,109 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"
     >
-    <title>PDF Merge — local merging in browser</title>
-    <meta
-      name="description"
-      content="Combine PDFs in your browser. Your documents are never uploaded."
-    >
+    <title>PDF Merger — Combine PDF files</title>
+    <meta name="description" content="Combine and reorder PDF files directly in your browser. Your documents are never uploaded to a server.">
+    <meta name="theme-color" content="#264653">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
-
-    <!-- Deferred scripts run in order after the page has been parsed. -->
     <script defer src="vendor/pdf-lib.min.js"></script>
     <script defer src="app.js"></script>
   </head>
 
   <body>
-    <header>
-      <a class="brand" href="./"><span class="logo">≋</span> PDF Merge</a>
-      <span class="local"><span></span> Runs on your device</span>
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="PDF Merger home">
+        <img src="logo.svg" width="40" height="44" alt="">
+        <span>PDF Merger<span class="brand-domain">.no</span></span>
+      </a>
+      <nav aria-label="Main navigation">
+        <a class="nav-link" href="#how-it-works">How it works</a>
+        <span class="local-label"><span class="status-dot"></span>Files stay on your device</span>
+      </nav>
     </header>
 
     <main>
-      <div class="eyebrow">A SIMPLE TOOL.</div>
-      <h1>Many PDFs.<br><span>One tidy file.</span></h1>
-      <p class="intro">
-        Bring your documents together in seconds.<br>
-        Your files stay on your device, from start to finish.
-      </p>
+      <section class="workspace" aria-labelledby="page-title">
+        <div class="workspace-inner">
+          <div class="section-label">DOCUMENT TOOLS <span>/</span> MERGE PDF</div>
 
-      <section class="card" aria-label="PDF merger">
-        <!-- File selection -->
-        <div id="drop" class="drop">
-          <div class="paper" aria-hidden="true">↓</div>
-          <h2>Drop your PDFs here</h2>
-          <p>or select files from your computer</p>
-          <button id="choose" class="primary">
-            Choose PDFs <span aria-hidden="true">＋</span>
-          </button>
-          <input
-            id="picker"
-            type="file"
-            accept=".pdf,application/pdf"
-            multiple
-            hidden
-          >
-          <div class="hint">PDF files only · Up to 100 MB combined</div>
-        </div>
+          <section class="card" aria-label="PDF merger">
+            <!-- The whole introductory panel accepts dropped PDFs. -->
+            <div id="drop" class="drop">
+              <div class="tool-copy">
+                <div class="tool-label"><span class="status-dot"></span>FREE PDF TOOL</div>
+                <h1 id="page-title">Merge PDF files.</h1>
+                <p class="intro">Bring your documents together. Select your PDFs, put them in order, and save one complete file.</p>
+                <button id="choose" class="primary" type="button">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                  Select PDF files
+                </button>
+                <input id="picker" type="file" accept=".pdf,application/pdf" multiple hidden>
+                <p class="drop-instruction">or drag and drop them here</p>
+                <p class="hint">PDF files only <span>·</span> Up to 100 MB combined</p>
+              </div>
 
-        <!-- Selected documents are populated by app.js. -->
-        <div id="queue" hidden>
-          <div class="list-heading">
-            <h2>Your documents <span id="count"></span></h2>
-            <button id="clear" class="text-button">Clear all</button>
+              <!-- Vector artwork stays crisp at any screen size. -->
+              <div class="tool-art" aria-hidden="true">
+                <img src="documents.svg" width="330" height="300" alt="">
+                <span class="art-caption">A FEW FILES. ONE DOCUMENT.</span>
+              </div>
+            </div>
+
+            <!-- app.js populates the file list and controls its visibility. -->
+            <div id="queue" class="queue" hidden>
+              <div class="list-heading">
+                <h2>Your files <span id="count"></span></h2>
+                <button id="clear" class="text-button" type="button">Clear all</button>
+              </div>
+              <p class="order-hint">Use the arrows to set the order of your documents.</p>
+              <ol id="files"></ol>
+              <div class="merge-footer">
+                <span id="total"></span>
+                <button id="merge" class="primary" type="button">Merge PDFs <span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+
+            <div class="result">
+              <p id="status" role="status" aria-live="polite"></p>
+              <a id="download" class="download" hidden download="merged.pdf">Download merged PDF <span aria-hidden="true">↓</span></a>
+            </div>
+          </section>
+
+          <div class="privacy">
+            <svg width="22" height="24" viewBox="0 0 24 26" fill="none" aria-hidden="true">
+              <path d="m12 2 9 4v7c0 5-5 9-9 11-4-2-9-6-9-11V6l9-4Z" stroke="currentColor" stroke-width="1.5"/>
+              <path d="m8 13 3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p><strong>Your files stay with you.</strong> Merging happens in your browser. No document uploads, no accounts, no tracking.</p>
           </div>
-          <p class="order-hint">Pages will be combined in the order below.</p>
-          <ol id="files"></ol>
-
-          <div class="merge-footer">
-            <span id="total"></span>
-            <button id="merge" class="primary">
-              Merge PDFs <span aria-hidden="true">→</span>
-            </button>
-          </div>
         </div>
-
-        <!-- Progress messages and the completed download -->
-        <p id="status" role="status" aria-live="polite"></p>
-        <a id="download" class="download" hidden download="merged.pdf">
-          Download merged PDF ↓
-        </a>
       </section>
 
-      <div class="privacy">
-        <span aria-hidden="true">◈</span>
-        <p>
-          <strong>Your documents stay yours.</strong> Files are processed in your
-          browser and never uploaded to a server. No tracking.
-        </p>
-      </div>
+      <section id="how-it-works" class="instructions" aria-labelledby="instructions-title">
+        <div class="instructions-heading">
+          <h2 id="instructions-title">One PDF. Three steps.</h2>
+          <p>From separate files to ready to share.</p>
+        </div>
+        <ol class="steps">
+          <li><span class="step-number">01</span><div><h3>Select your files</h3><p>Choose two or more PDFs, or drop them into the box above.</p></div></li>
+          <li><span class="step-number">02</span><div><h3>Set the order</h3><p>Move documents up or down. Remove any you don’t need.</p></div></li>
+          <li><span class="step-number">03</span><div><h3>Merge and download</h3><p>Save your combined PDF straight to your device.</p></div></li>
+        </ol>
+      </section>
     </main>
 
-    <footer>The code is available at https://github.com/johannesystebo</footer>
+    <footer class="site-footer">
+      <span>PDF Merger<span class="brand-domain">.no</span></span>
+      <span>A simpler way to work with documents.</span>
+      <a href="https://github.com/johannesystebo">The code is available on github<span aria-hidden="true">↗</span></a>
+    </footer>
   </body>
 </html>
